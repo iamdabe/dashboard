@@ -1,0 +1,104 @@
+# settings.yaml - for https://gethomepage.dev/
+# iamdabe - https://github.com/iamdabe/dashboard/
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey
+
+cardBlur: sm
+
+useEqualHeights: true
+
+hideErrors: falses
+
+disableCollapse: true
+
+hideVersion: false
+
+showStats: false
+
+headerStyle: clean
+
+# - resources:
+#     label: System
+#     cpu: true
+#     memory: true
+
+layout:
+  Quick Tools:
+    header: false
+    style: row
+    columns: 2
+    Finance:
+      style: row
+      columns: 3
+    Media:
+      style: row
+      columns: 3
+
+  Homelab:
+    style: row
+    columns: 3
+    
+    Homelab2:
+      header: false
+      style: row
+      columns: 1
+
+      Servers:
+        header: false
+        style: row
+        columns: 2
+      
+      Automation:
+        header: false
+        style: row
+        columns: 1
+
+      Homelab Apps:
+        header: false
+        style: row
+        columns: 2
+
+    Apps:
+      header: false
+      style: row
+      columns: 1     
+
+      App Tools:
+        header: false
+        style: row
+        columns: 2
+
+
+    Network:
+      header: false
+      style: row
+      columns: 1
+
+      Network Tools:
+        header: false
+        style: row
+        columns: 2
+
+ 
+  Links:
+    header: false
+    style: row
+    columns: 3
+    Development:
+      style: row
+      columns: 5
+
+    Health:
+      style: row
+      columns: 5
+    
+    Social:
+      style: row
+      columns: 5
+
+  Production:
+    style: row
+    columns: 3
+    
