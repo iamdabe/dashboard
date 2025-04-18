@@ -62,9 +62,6 @@ body {
 #nextdns .service-container .service-block:nth-of-type(2) {
     display: box;
 }
-#nextdns .service-container .service-block div {
-    display: inline-block;
-}
 
 
 /* Reduce size of the round dot on top right for the healthcheck */
