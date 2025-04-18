@@ -1,0 +1,501 @@
+---
+# services.yaml - for https://gethomepage.dev/
+# iamdabe - https://github.com/iamdabe/dashboard/
+
+
+- Quick Tools:
+  - Finance:
+    - Invoice Shelf:
+        icon: /icons/invoiceshelf.png
+        href: https:///admin/dashboard
+        siteMonitor: https://
+        statusStyle: "dot"    
+        widget:
+          type: customapi
+          url: https:///api/v1/dashboard
+          refreshInterval: 3600000 # Refresh every 1hr
+          method: GET
+          headers:
+            Authorization: Bearer KEY
+          display: block
+          mappings:
+            - field: total_amount_due
+              label: Due
+              format: currency
+              scale: 0.01
+              suffix: "€"
+            - field: total_invoice_count
+              label: Invoices
+              format: number
+
+    - Actual Budget:
+        icon: /icons/actualbudget.svg
+        description: Wealth Management & Family Budgeting 
+        href: https://
+        siteMonitor: https://
+        statusStyle: "dot"    
+
+    - Docmost:
+        icon: /icons/docmost.png
+        description: Personal Knowledge Management
+        href: http://
+        siteMonitor: http://
+        statusStyle: "dot"
+
+  - Media:
+    - VueTorrent:
+        icon: /icons/vue.png
+        href: https://
+        siteMonitor: https://
+        statusStyle: "dot"        
+        widget:
+            type: qbittorrent
+            url: http://
+            username: user
+            password: password
+            fields: ["leech", "download"]
+
+    - Plex:
+        icon: plex.svg
+        href: http://
+        siteMonitor: http://
+        statusStyle: "dot"        
+        widget:
+            type: plex
+            url: http://
+            key: key
+            fields: [ "movies", "tv"]  
+
+    - Synology:
+        icon: /icons/synology.png   
+        href: https://
+        siteMonitor: https://
+        statusStyle: "dot"
+        widget:
+          type: diskstation
+          url: https://
+          username: user
+          password: password
+          fields: ["resources.cpu", "resources.mem", "volumeAvailable"]    
+
+- Homelab:  
+    - Homelab2:
+      - Servers:
+        - srv1:
+            icon: /icons/microsoft.svg
+            siteMonitor: http://
+            href: https://
+            widgets:
+            - type: beszel
+              url: http://
+              username: user
+              password: password
+              version: 2
+              systemId: system id
+              fields: [ "cpu", "memory", "disk"]
+
+        - srv2:
+            icon: sh-linux.svg
+            siteMonitor: http://
+            href: https://
+            widgets:
+            - type: beszel
+              url: http://
+              username: user
+              password: password
+              version: 2
+              systemId: system id
+              fields: [ "cpu", "memory", "disk"]
+
+      - Automation:
+        - Home Assistant:
+            icon: /icons/home-assistant.svg
+            href: https://
+            siteMonitor: https://
+            statusStyle: "dot"        
+            widget:
+                type: homeassistant
+                url: https://
+                key: key
+                custom:
+                    - state: sensor.grid_active_power
+                      label: Power 
+                    - state: sensor.living_room_temperature_temperature
+                      label: Inside
+                    - state: sensor.outside_temperature_temperature
+                      label: Outside
+
+        - Reolink:
+            icon: /icons/reolink.jpg
+            href: https://
+            siteMonitor: https://
+            statusStyle: "dot"   
+            widget:
+                type: homeassistant
+                url: https://
+                key: key
+                custom:            
+                    - template: "Door {{ 'detected' if is_state('binary_sensor.front_door_person', 'Detected') else 'Clear' }} - {{ relative_time(states.binary_sensor.front_door_person.last_changed) }} ago" 
+                      label: ''
+                    - template: "Outside {{ 'detected' if is_state('binary_sensor.front_person', 'Detected') else 'Clear' }} - {{ relative_time(states.binary_sensor.front_person.last_changed) }} ago" 
+                      label: ''
+
+      - Homelab Apps:
+        - Grocy:
+            icon: /icons/grocy.svg
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"
+            widgets:
+              - type: customapi
+                url: http:///api/stock
+                refreshInterval: 3600000 # Refresh every 1hr
+                method: GET
+                display: block
+                mappings:
+                  - field:
+                      0:
+                        product: name 
+                    label: Item
+                  - field:
+                      0:
+                        amount
+                    suffix: " bags"
+                    label: Intentory
+
+        - ESPHome:
+            icon: /icons/esphome.svg
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot" 
+            widget:
+              type: esphome
+              fields: ["online", "offline_alt"]
+              url: http:// 
+
+    - Apps:
+
+      - Lube Logger:
+            icon: /icons/lubelogger.png
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"        
+            widgets:
+              - type: customapi
+                url: http:///api/vehicle/info/
+                refreshInterval: 3600000 # Refresh every 1hr
+                method: GET
+                display: block
+                mappings:
+                  - field: 
+                      0: 
+                        vehicleData: model
+                  - field: 
+                      0: 
+                        nextReminder: description
+                  - field: 
+                      0: 
+                        nextReminder: dueDate
+              - type: customapi
+                url: http:///api/vehicle/info/
+                refreshInterval: 3600000 # Refresh every 1hr
+                method: GET
+                display: block         
+                mappings:
+                  - field: 
+                      1: 
+                        vehicleData: model
+                  - field: 
+                      1: 
+                        nextReminder: description
+                  - field: 
+                      1: 
+                        nextReminder: dueDate
+
+
+      - App Tools:
+
+        - Wallos:
+            id: apptools
+            icon: /icons/wallos.png
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"        
+
+        - Brick Tracker:
+            icon: /icons/bricktracker.png
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"                        
+
+        - Jackett:
+            icon: /icons/jackett.svg
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot" 
+        
+        - Traccar:
+            id: traccar
+            icon: /icons/traccar.svg
+            href: https://
+            siteMonitor: https://
+            statusStyle: "dot"
+
+        - Tailscale:
+            icon: /icons/tailscale2.svg
+            href: https://login.tailscale.com/admin/
+
+        - Syncthing:
+            icon: /icons/syncthing.svg
+            href: https://
+            siteMonitor: https://
+            statusStyle: "dot"   
+
+        - TickTick:
+            icon: /icons/ticktick.svg
+            href: https://ticktick.com/webapp#p/inbox/tasks/
+
+        - ChatGPT:
+            icon: /icons/chatgpt1.svg
+            href: https://chatgpt.com/
+        
+        - OpenWebUi:
+            icon: /icons/openwebui2.svg
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"       
+
+
+    - Network:
+      - Network Tools:
+
+        - Beszel:
+            id: Beszel
+            icon: /icons/beszel.svg
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"
+            widgets:
+            - type: beszel
+              url: http://
+              username: email
+              password: password
+              version: 2
+
+        - Nginx:
+            id: Nginx
+            icon: /icons/nginx.svg
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"
+            widget:
+              type: npm
+              url: http://
+              username: username
+              password: password
+
+        - Dozzle:
+            icon: sh-dozzle.svg
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"   
+
+        - dockge:
+            id: dockge
+            icon: /icons/dockge.svg
+            href: https://
+            siteMonitor: https://
+            statusStyle: "dot"
+
+        - WatchYourLan:
+            icon: /icons/watchyourlan.png   
+            href: http://
+            siteMonitor: http://
+            statusStyle: "dot"
+            widget:
+              type: customapi
+              url: http:///api/status/
+              refreshInterval: 3600000 # Refresh every 1hr
+              method: GET
+              display: block
+              mappings:
+                - field: Known
+                  label: Known
+                  format: number
+                - field: Unknown
+                  format: number
+                  label: Unknown
+
+        - NextDNS:
+            id: nextdns
+            icon: /icons/nextdns.svg
+            href: https://my.nextdns.io/
+            widget:
+                type: nextdns
+                profile: profile
+                key: key
+
+        - Starlink Dishy:
+            icon: /icons/starlink.svg   
+            href: http://
+            widgets:
+              - type: homeassistant
+                url: https://
+                key: key
+                display: block
+                custom:      
+                    - template: "{{ (states('sensor.starlink_downlink_throughput') | float(default=0) / 1000000) | round(2) }} Mbps"
+                    - template: "{{ states('sensor.starlink_ping') | float | round(0) }} ms"
+  
+- Links:
+    - Development:
+      
+      - Code Server:
+          icon: /icons/vscode.svg
+          href: http://
+          siteMonitor: http://
+          statusStyle: "dot"   
+
+      - Aspire Dashboard:
+          icon: /icons/aspire.png
+          href: http://
+          siteMonitor: http://
+          statusStyle: "dot"   
+
+      - ChartDB:
+          icon: /icons/chartdb.png
+          href: http://
+          siteMonitor: http://
+          statusStyle: "dot"   
+
+      - Photopea:
+          id: bookmark1
+          icon: /icons/photopea.svg
+          href: https://www.photopea.com/?utm_source=homescreen
+
+      - Codepen:
+          id: codepen
+          icon: /icons/codepen.svg
+          href: https://codepen.io/pen/
+
+      - Lets Enhance:
+          id: letsenhance
+          icon: /icons/letsenhance.png
+          href: https://letsenhance.io/
+      
+      - Pixel Cut:
+          id: pixelcut
+          icon: /icons/pixelcut.png
+          href: https://www.pixelcut.ai/
+
+      - Composerize:
+          id: composerize
+          icon: /icons/composerize.png
+          href: https://www.composerize.com/
+
+      - Hoppscotch:
+          id: hoppscotch
+          icon: /icons/hoppscotch.svg
+          href: https://hoppscotch.io/
+
+      - Selfh.st:
+          icon: /icons/selfh-st.svg
+          href: https://selfh.st/icons/
+
+
+    - Health:
+      - Intervals.icu:
+          id: bookmark2
+          icon: /icons/intervals.jpg
+          href: https://intervals.icu/
+
+      - Habit Dash:
+          id: habitdash
+          icon: /icons/habitdash.svg
+          href: https://habitdash.com/overview/
+
+      - Strava:
+          id: strava
+          icon: /icons/strava.svg
+          href: https://strava.com/
+
+      - Komoot:
+          id: Komoot
+          icon: /icons/komoot.svg
+          href: https://komoot.com/
+
+      - Darawich:
+          id: Darawich
+          icon: /icons/dawarich.svg
+          href: http:///
+          siteMonitor: http://
+          statusStyle: "dot"   
+
+
+    - Social:
+      - Reddit:
+          id: bookmark3
+          icon: /icons/reddit.svg
+          href: https://reddit.com/
+
+
+
+
+  # - Lube Logger 2:
+  #       icon: /icons/lubelogger.png
+  #       href: http://
+  #       widgets:
+  #         - type: customapi
+  #           url: http:///api/vehicle/info/
+  #           refreshInterval: 3600000 # Refresh every 1hr
+  #           method: GET
+  #           display: list          
+  #           mappings:
+  #             - field: 
+  #                 0: 
+  #                   vehicleData: make
+  #               additionalField:
+  #                 field:
+  #                   0: 
+  #                     vehicleData: model
+  #               label: Make
+  #             - field: 
+  #                 0: 
+  #                   nextReminder: description
+  #               additionalField:
+  #                 field: 
+  #                   0: 
+  #                     nextReminder: dueDate
+  #               label: Reminder
+  #             - field: 
+  #                 0: 
+  #                   lastReportedOdometer
+  #               suffix: " km"
+  #               label: Odometer
+  #         - type: customapi
+  #           url: http:///api/vehicle/info/
+  #           refreshInterval: 3600000 # Refresh every 1hr
+  #           method: GET
+  #           display: list
+  #           mappings:
+  #             - field: 
+  #                 1: 
+  #                   vehicleData: make
+  #               additionalField:
+  #                 field:
+  #                   1: 
+  #                     vehicleData: model
+  #               label: Make
+  #             - field: 
+  #                 1: 
+  #                   nextReminder: description
+  #               additionalField:
+  #                 field: 
+  #                   1: 
+  #                     nextReminder: dueDate
+  #               label: Reminder
+  #             - field: 
+  #                 1: 
+  #                   lastReportedOdometer
+  #               suffix: " km"
+  #               label: Odometer
