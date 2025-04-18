@@ -1,0 +1,143 @@
+/* custom.css - for https://gethomepage.dev/ */
+
+html {
+    font-size: 120%; 
+}
+body {
+    background: url('/images/background2.jpg') no-repeat center center fixed; 
+    background-size: cover;
+}
+
+/* Override background */ 
+#page_container {
+    background: transparent !important;
+}
+
+
+/* Subtle drop shadow for all text - helps with readability against background */
+* {
+    text-shadow:  0px 0px 0px rgba(0, 0, 0, 0.5), 1px 2px 1px rgba(0, 0, 0, 0.8);
+    color: white !important;
+}
+
+
+/* Increase the radius of the corners */
+.rounded-md, .rounded {
+    border-radius: 15px !important;
+}
+
+
+/* Service items sublte drop shadow */
+.service > div {
+    box-shadow: 0 0px 6px -1px var(--tw-shadow-color,#0000001a),0 0px 4px 0px var(--tw-shadow-color,#0000001a)
+}
+
+
+/* Make the widget service blocks all one unit */
+.service-block {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+.service div .service-container {
+    background: #00000033;
+}
+.service div> :nth-child(2).service-container {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.service div > :last-child.service-container {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.service div > *:nth-child(n+3) > div {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+
+/* NextDNS specific items to only show the 'blocked' container */
+#nextdns .service-container .service-block:nth-of-type(1), #nextdns .service-container .service-block:nth-of-type(3) {
+    display:none;
+}
+#nextdns .service-container .service-block:nth-of-type(2) {
+    display: box;
+}
+#nextdns .service-container .service-block div {
+    display: inline-block;
+}
+
+
+/* Reduce size of the round dot on top right for the healthcheck */
+.site-monitor-status > .rounded-full, .service-container-stats  .rounded-full {
+    width: calc(var(--spacing)* 1.5); 
+}
+
+.site-monitor-status:has(> .rounded-full), .service-container-stats:has( .rounded-full) {
+    padding: calc(var(--spacing)* 2) calc(var(--spacing)* 2) 0 0;
+}
+
+
+/* Make the column with the service id #apptools# always display 2 item wide (these are just titles) */
+ul:has(:is(
+    li#apptools
+)) {   
+    @media (width <= 63rem){
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* Smaller square icons for the lower bookmark row - will apply to all services when one item has one of the following ids */
+ul:has(:is(
+    li#bookmark1, 
+    li#bookmark2, 
+    li#bookmark3
+)) {
+    
+    @media (width <= 63rem){
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    li {
+        aspect-ratio: 1 / 1;
+
+        .service-title {
+            height: 100%;
+            width: 100%;
+        }
+
+        .service-name{
+            font-size: 0.65rem;
+        }
+        
+        .service-icon img{
+            width: 50% !important;
+            height: auto !important;
+        }
+
+        a:nth-of-type(2) {
+            display: none;
+        }
+
+        a:nth-of-type(1) {
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        a:nth-of-type(1):hover + a:nth-of-type(2),
+        a:nth-of-type(2):hover {
+            display: block;
+            position: absolute;
+            background-color: #00000022;
+            z-index: 999;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            
+            font-size: 0.1em !important;
+        }
+    }
+
+}
